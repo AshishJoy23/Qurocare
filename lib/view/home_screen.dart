@@ -15,25 +15,25 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Put (register) the controller — GetX manages its lifecycle automatically
     final controller = Get.put(ProductController());
-
+    var size = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Row(
           children: [
             Container(
-              width: 32,
-              height: 32,
+              width: size*0.1,
+              height: size*0.1,
               decoration: BoxDecoration(
                 color: AppTheme.accent,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(size*0.02),
               ),
-              child: const Icon(
+              child:  Icon(
                 Icons.shopping_bag_rounded,
-                size: 18,
+                size: size*0.06,
                 color: Colors.white,
               ),
             ),
-            const SizedBox(width: 10),
+             SizedBox(width: size*0.03),
             const Text('ShopLite'),
           ],
         ),
@@ -49,11 +49,11 @@ class HomeScreen extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(width: 4),
+           SizedBox(width: size*0.03),
         ],
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1),
-          child: Container(height: 1, color: Colors.white.withValues(alpha: 0.1)),
+          preferredSize:  Size.fromHeight(size*0.01),
+          child: Container(height: size*0.01, color: Colors.white.withValues(alpha: 0.1)),
         ),
       ),
 
@@ -75,17 +75,17 @@ class HomeScreen extends StatelessWidget {
         // Loaded state — product grid
         return Column(
           children: [
-            _buildHeaderBar(controller.products.length),
+            _buildHeaderBar(controller.products.length,size),
             Expanded(
               child: LayoutBuilder(
                 builder: (context, constraints) {
                   final crossAxisCount = constraints.maxWidth > 600 ? 3 : 2;
                   return GridView.builder(
-                    padding: const EdgeInsets.all(16),
+                    padding: EdgeInsets.all(size*0.02),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: crossAxisCount,
-                      crossAxisSpacing: 14,
-                      mainAxisSpacing: 14,
+                      crossAxisSpacing: size*0.02,
+                      mainAxisSpacing: size*0.02,
                       childAspectRatio: 0.68,
                     ),
                     itemCount: controller.products.length,
@@ -110,9 +110,9 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeaderBar(int count) {
+  Widget _buildHeaderBar(int count,var size) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding:  EdgeInsets.symmetric(horizontal: size*0.03, vertical: size*0.02),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -120,30 +120,40 @@ class HomeScreen extends StatelessWidget {
           Text(
             '$count Products',
             style: const TextStyle(
-              fontSize: 14,
+              fontSize: 15,
               fontWeight: FontWeight.w600,
               color: AppTheme.textMuted,
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: AppTheme.primary.withValues(alpha: 0.07),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Row(
-              children: [
-                Icon(Icons.grid_view_rounded, size: 14, color: AppTheme.primary),
-                SizedBox(width: 4),
-                Text(
-                  'Grid View',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: AppTheme.primary,
+          InkWell(
+            onTap: () {
+              Get.snackbar(
+                'View',
+                'Other view coming soon!',
+                snackPosition: SnackPosition.BOTTOM,
+                duration: const Duration(seconds: 1),
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: size*0.02, vertical: size*0.01),
+              decoration: BoxDecoration(
+                color: AppTheme.primary.withValues(alpha: 0.07),
+                borderRadius: BorderRadius.circular(size*0.05),
+              ),
+              child: const Row(
+                children: [
+                  Icon(Icons.grid_view_rounded, size: 14, color: AppTheme.primary),
+                  SizedBox(width: 4),
+                  Text(
+                    'Grid View',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: AppTheme.primary,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

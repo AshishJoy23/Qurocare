@@ -13,26 +13,27 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: EdgeInsets.all(size.width*0.2),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 90,
-              height: 90,
+              width: size.width*0.3,
+              height: size.width*0.3,
               decoration: BoxDecoration(
                 color: AppTheme.accent.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.wifi_off_rounded,
-                size: 44,
+                size: size.width*0.14,
                 color: AppTheme.accent,
               ),
             ),
-            const SizedBox(height: 24),
+             SizedBox(height: size.width*0.1),
             const Text(
               'Oops! Something went wrong',
               style: TextStyle(
@@ -42,7 +43,7 @@ class ErrorView extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: size.width*0.05),
             Text(
               message,
               style: const TextStyle(
@@ -52,7 +53,7 @@ class ErrorView extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 32),
+            SizedBox(height: size.width*0.08),
             ElevatedButton.icon(
               onPressed: onRetry,
               icon: const Icon(Icons.refresh_rounded),
@@ -60,9 +61,9 @@ class ErrorView extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppTheme.accent,
                 foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 32,
-                  vertical: 14,
+                padding: EdgeInsets.symmetric(
+                  horizontal: size.width*0.1,
+                  vertical: size.width*0.03,
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),

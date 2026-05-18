@@ -15,6 +15,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -24,38 +25,38 @@ class ProductCard extends StatelessWidget {
             // Product image
             Expanded(
               child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(16),
+                borderRadius:  BorderRadius.vertical(
+                  top: Radius.circular(size.width*0.04),
                 ),
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
                     Container(
                       color: Colors.grey.shade50,
-                      padding: const EdgeInsets.all(12),
+                      padding: EdgeInsets.all(size.width*0.03),
                       child: CachedNetworkImage(
                         imageUrl: product.image,
                         fit: BoxFit.contain,
                         placeholder: (context, url) => const Center(
                           child: CircularProgressIndicator(strokeWidth: 2),
                         ),
-                        errorWidget: (context, url, error) => const Icon(
+                        errorWidget: (context, url, error) =>  Icon(
                           Icons.image_not_supported_outlined,
                           color: Colors.grey,
-                          size: 40,
+                          size: size.width*0.14,
                         ),
                       ),
                     ),
                     // Category chip
                     Positioned(
-                      top: 8,
-                      left: 8,
+                      top: size.width*0.02,
+                      left: size.width*0.02,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: size.width*0.02, vertical: size.width*0.01),
                         decoration: BoxDecoration(
                           color: AppTheme.primary.withValues(alpha: 0.85),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(size.width*0.02),
                         ),
                         child: Text(
                           product.category.toUpperCase(),
@@ -77,7 +78,7 @@ class ProductCard extends StatelessWidget {
 
             // Product info
             Padding(
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.all(size.width*0.02),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -92,16 +93,16 @@ class ProductCard extends StatelessWidget {
                       height: 1.3,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                   SizedBox(height: size.width*0.02),
 
                   // Rating row
                   Row(
                     children: [
-                      const Icon(Icons.star_rounded,
-                          size: 14, color: AppTheme.starColor),
+                       Icon(Icons.star_rounded,
+                          size: size.width*0.04, color: AppTheme.starColor),
                       const SizedBox(width: 3),
                       Text(
-                        product.rating.rate.toString(),
+                        product.rating.toString(),
                         style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w600,
@@ -109,7 +110,7 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        ' (${product.rating.count})',
+                        ' (${product.count})',
                         style: TextStyle(
                           fontSize: 11,
                           color: AppTheme.textMuted.withValues(alpha: 0.7),
@@ -117,7 +118,7 @@ class ProductCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: size.width*0.02),
 
                   // Price row
                   Row(
@@ -132,14 +133,14 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.all(6),
+                        padding:  EdgeInsets.all(size.width*0.02),
                         decoration: BoxDecoration(
                           color: AppTheme.accent,
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(size.width*0.05),
                         ),
-                        child: const Icon(
+                        child:  Icon(
                           Icons.arrow_forward_rounded,
-                          size: 14,
+                          size: size.width*0.05,
                           color: Colors.white,
                         ),
                       ),
